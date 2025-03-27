@@ -18,4 +18,45 @@ public class FormaPagamento implements Serializable {
     @Column(name = "STATUS_FP" , nullable = false)
     private String statusFP;
 
+    public FormaPagamento() {
+    }
+
+    public FormaPagamento(Long idFormaPagamento, String descricao, String tipo, String statusFP) {
+        IdFormaPagamento = idFormaPagamento;
+        this.descricao = descricao;
+        this.tipo = tipo;
+        this.statusFP = statusFP;
+    }
+
+    public Long getIdFormaPagamento() {
+        return IdFormaPagamento;
+    }
+
+    public void setIdFormaPagamento(Long idFormaPagamento) {
+        IdFormaPagamento = idFormaPagamento;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getStatusFP() {
+        return statusFP;
+    }
+
+    public void setStatusFP(String statusFP) {
+        this.statusFP = statusFP;
+    }
 }
