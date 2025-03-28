@@ -3,6 +3,8 @@ package org.example.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Cliente implements Serializable{
@@ -11,6 +13,20 @@ public class Cliente implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_CLIENTE")
     private Long IdCliente;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Contato> contatos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Endereco> enderecos = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "ID_CONTATO" , nullable = false)
+    private Contato contato;
+
+    @OneToOne
+    @JoinColumn(name = "ID_ENDERECO" , nullable = false)
+    private Endereco endereco;
 
     @Column(length = 55, name = "NOME_CLIENTE", nullable = false)
     private String nome;
@@ -28,8 +44,10 @@ public class Cliente implements Serializable{
     public Cliente() {
     }
 
-    public Cliente(Long idCliente, String nome, String cpf, LocalDate dataNascimento, String statusCliente) {
+    public Cliente(Long idCliente, Contato contato, Endereco endereco, String nome, String cpf, LocalDate dataNascimento, String statusCliente) {
         IdCliente = idCliente;
+        this.contato = contato;
+        this.endereco = endereco;
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -42,6 +60,22 @@ public class Cliente implements Serializable{
 
     public void setIdCliente(Long idCliente) {
         IdCliente = idCliente;
+    }
+
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     public String getNome() {
@@ -74,5 +108,21 @@ public class Cliente implements Serializable{
 
     public void setStatusCliente(String statusCliente) {
         this.statusCliente = statusCliente;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
     }
 }

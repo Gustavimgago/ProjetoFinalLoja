@@ -10,6 +10,10 @@ public class Endereco implements Serializable {
     @Column(name = "ID_ENDERECO")
     private Long IdEndereco;
 
+    @ManyToOne
+    @JoinColumn(name = "ID_CLIENTE", nullable = false)
+    private Cliente cliente;
+
     @Column(name = "LONGRADOURO" , nullable = false)
     private String longradouro;
 

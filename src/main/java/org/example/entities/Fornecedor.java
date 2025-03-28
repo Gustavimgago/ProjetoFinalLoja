@@ -1,7 +1,12 @@
 package org.example.entities;
 
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Fornecedor implements Serializable {
 
@@ -10,6 +15,9 @@ public class Fornecedor implements Serializable {
     @Column(name = "ID_FORNECEDOR")
     private Long IdFornecedor;
 
+    @OneToMany(mappedBy = "conFornecedor", cascade = CascadeType.ALL)
+    private List<Contato> contatos = new ArrayList<>();
+
     @Column(name = "RAZAO_SOCIAL", nullable = false)
     private String razaoSocial;
 
@@ -17,7 +25,7 @@ public class Fornecedor implements Serializable {
     private String nomeFantasia;
 
     @Column(name = "CNPJ", nullable = false)
-    private int cnpj;
+    private String cnpj;
 
     @Column(name = "STATUS_FORNECEDOR", nullable = false)
     private String statusFornecedor;
@@ -25,7 +33,7 @@ public class Fornecedor implements Serializable {
     public Fornecedor() {
     }
 
-    public Fornecedor(Long idFornecedor, String razaoSocial, String nomeFantasia, int cnpj, String statusFornecedor) {
+    public Fornecedor(Long idFornecedor, String razaoSocial, String nomeFantasia, String cnpj, String statusFornecedor) {
         IdFornecedor = idFornecedor;
         this.razaoSocial = razaoSocial;
         this.nomeFantasia = nomeFantasia;
@@ -39,6 +47,14 @@ public class Fornecedor implements Serializable {
 
     public void setIdFornecedor(Long idFornecedor) {
         IdFornecedor = idFornecedor;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
     }
 
     public String getRazaoSocial() {
@@ -57,11 +73,11 @@ public class Fornecedor implements Serializable {
         this.nomeFantasia = nomeFantasia;
     }
 
-    public int getCnpj() {
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(int cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 

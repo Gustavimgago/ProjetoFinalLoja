@@ -10,23 +10,28 @@ public class Produto implements Serializable {
     @Column(name = "ID_PRODUTO")
     private Long IdProduto;
 
-    @Column(name = "DESCRICAO_PRODUTO" , nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "ID_FORNECEDOR", nullable = false)
+    private Fornecedor fornecedor;
+
+    @Column(name = "DESCRICAO_PRODUTO", nullable = false)
     private String descricaoProduto;
 
-    @Column(name = "PRECO_CUSTO" , nullable = false)
+    @Column(name = "PRECO_CUSTO", nullable = false)
     private double precoCusto;
 
-    @Column(name = "PRECO_VENDA" , nullable = false)
+    @Column(name = "PRECO_VENDA", nullable = false)
     private double precoVenda;
 
-    @Column(name = "ESTOQUE" , nullable = false)
+    @Column(name = "ESTOQUE", nullable = false)
     private int estoque;
 
     public Produto() {
     }
 
-    public Produto(Long idProduto, String descricaoProduto, double precoCusto, double precoVenda, int estoque) {
+    public Produto(Long idProduto, Fornecedor fornecedor, String descricaoProduto, double precoCusto, double precoVenda, int estoque) {
         IdProduto = idProduto;
+        this.fornecedor = fornecedor;
         this.descricaoProduto = descricaoProduto;
         this.precoCusto = precoCusto;
         this.precoVenda = precoVenda;
@@ -39,6 +44,14 @@ public class Produto implements Serializable {
 
     public void setIdProduto(Long idProduto) {
         IdProduto = idProduto;
+    }
+
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public String getDescricaoProduto() {
